@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>To-Do (Tailwind + Node)</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body class="min-h-screen bg-slate-900 text-slate-100 grid place-items-center p-6">
+  <main class="w-full max-w-2xl bg-panel/90 border border-slate-800 rounded-2xl shadow-glass p-5 md:p-7">
+    <header class="flex items-center justify-between gap-3 mb-4">
+      <h1 class="text-2xl md:text-3xl font-semibold tracking-tight">To-Do</h1>
+      <div id="counter" class="text-slate-400 text-sm" aria-live="polite">0 items</div>
+    </header>
+
+    <form id="add-form" class="grid grid-cols-[1fr_auto] gap-2 mb-3" autocomplete="off">
+      <label for="new-task" class="sr-only">Add a task</label>
+      <input id="new-task" name="task" placeholder="What do you need to do?"
+             required minlength="1"
+             class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-4 py-3 outline-none focus-visible:ring-4 ring-blue-400/40 focus:border-blue-400" />
+      <button type="submit"
+              class="rounded-xl border border-blue-700 bg-gradient-to-b from-blue-700 to-blue-900 px-4 py-3 hover:brightness-110 active:translate-y-px">
+        Add
+      </button>
+    </form>
+
+    <section class="flex items-center justify-between gap-2 flex-wrap mb-3" aria-label="Filters and actions">
+      <div class="inline-flex rounded-xl border border-slate-800 bg-slate-950/60 p-1" role="tablist" aria-label="Filter tasks">
+        <button data-filter="all" aria-pressed="true"
+                class="px-3 py-1.5 rounded-lg text-sm text-slate-400 aria-pressed:bg-slate-800 aria-pressed:text-slate-100">
+          All
+        </button>
+        <button data-filter="active" aria-pressed="false"
+                class="px-3 py-1.5 rounded-lg text-sm text-slate-400 aria-pressed:bg-slate-800 aria-pressed:text-slate-100">
+          Active
+        </button>
+        <button data-filter="completed" aria-pressed="false"
+                class="px-3 py-1.5 rounded-lg text-sm text-slate-400 aria-pressed:bg-slate-800 aria-pressed:text-slate-100">
+          Completed
+        </button>
+      </div>
+      <div class="flex gap-2">
+        <button id="clear-completed" type="button" class="rounded-xl border border-slate-800 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800/60">Clear Completed</button>
+        <button id="export-json" type="button" class="rounded-xl border border-slate-800 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800/60">Export</button>
+        <label for="import-json" class="rounded-xl border border-slate-800 px-3 py-2 text-sm text-slate-300 hover:bg-slate-800/60 cursor-pointer">Import</label>
+        <input id="import-json" type="file" accept="application/json" hidden />
+      </div>
+    </section>
+
+    <section id="list" class="grid gap-2" aria-label="Task list"></section>
+  </main>
+
+  <template id="row-template">
+    <div class="flex items-center gap-2 rounded-xl bg-slate-950/60 border border-slate-800 px-3 py-2">
+      <input type="checkbox" aria-label="Mark complete"
+             class="h-5 w-5 rounded-md border-2 border-slate-600 accent-emerald-400" />
+      <div class="title flex-1 leading-snug break-words outline-none" tabindex="0"></div>
+      <div class="flex gap-1">
+        <button type="button" class="px-2 py-1 text-sm text-slate-300 hover:bg-slate-800/60 rounded-lg edit">Edit</button>
+        <button type="button" class="px-2 py-1 text-sm text-rose-300 hover:bg-rose-900/40 rounded-lg del">Delete</button>
+      </div>
+    </div>
+  </template>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
